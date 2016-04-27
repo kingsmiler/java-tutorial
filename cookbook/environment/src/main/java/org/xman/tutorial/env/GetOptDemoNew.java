@@ -30,7 +30,7 @@ public class GetOptDemoNew {
                     numeric_option = true;
                     break;
                 case 'o':
-                    outputFileName = (String) optionsFound.get(key);
+                    outputFileName = optionsFound.get(key);
                     break;
                 case '?':
                     errs = true;

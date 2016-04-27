@@ -10,12 +10,15 @@ public class SysPropSet {
     static Properties p = System.getProperties();
 
     public static void main(String[] argv) {
+        String javaHome = System.getenv("JAVA_HOME");
         System.out.println("System Properties:");
         System.out.println("java.class.path now = " + getClassPath());
         p.setProperty("java.class.path",
-                getClassPath() + ';' + "C:/jdk1.2/lib/tools.jar");
+                getClassPath() + ';' + javaHome +"/lib/tools.jar");
+
         System.out.println("java.class.path now = " + getClassPath());
         try {
+            // JavaP is in the tools.jar
             Class.forName("sun.tools.javap.JavaP");
         } catch (Exception e) {
             System.err.println(e);
