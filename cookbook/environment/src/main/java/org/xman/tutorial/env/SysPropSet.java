@@ -11,10 +11,11 @@ public class SysPropSet {
 
     public static void main(String[] argv) {
         String javaHome = System.getenv("JAVA_HOME");
+        String pathSeparator = System.getProperty("path.separator");
         System.out.println("System Properties:");
         System.out.println("java.class.path now = " + getClassPath());
         p.setProperty("java.class.path",
-                getClassPath() + ';' + javaHome +"/lib/tools.jar");
+                getClassPath() + pathSeparator + javaHome +"/lib/tools.jar");
 
         System.out.println("java.class.path now = " + getClassPath());
         try {
