@@ -19,7 +19,9 @@ public class SysPropSet {
 
         System.out.println("java.class.path now = " + getClassPath());
         try {
-            // JavaP is in the tools.jar
+            // javap is a package and in the tools.jar, there is maybe always a exception
+            // sun.tools.javap.Main (jdk5\jdk6)
+            // com.sun.tools.javap.Main (jdk7\jdk8)
             Class.forName("sun.tools.javap.JavaP");
         } catch (Exception e) {
             System.err.println(e);
