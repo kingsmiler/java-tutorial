@@ -7,22 +7,16 @@ import java.util.Date;
  *
  * @author Ian Darwin
  */
-// BEGIN main
 public class Array2 {
-    public final static int INITIAL = 10,   // <1>
-            GROW_FACTOR = 2;                    // <2>
+    public final static int INITIAL = 10;
+    public final static int GROW_FACTOR = 2;
 
     public static void main(String[] argv) {
         int nDates = 0;
         Date[] dates = new Date[INITIAL];
         StructureDemo source = new StructureDemo(21);
         Date c;
-        while ((c = (Date) (source.getDate())) != null) {
-
-            // if (nDates >= dates.length) {
-            //     System.err.println("Too Many Dates! Simplify your life!!");
-            //     System.exit(1);  // wimp out
-            // }
+        while ((c = (source.getDate())) != null) {
 
             // better: reallocate, making data structure dynamic
             if (nDates >= dates.length) {
@@ -36,4 +30,4 @@ public class Array2 {
         System.out.println("Final array size = " + dates.length);
     }
 }
-// END main
+
