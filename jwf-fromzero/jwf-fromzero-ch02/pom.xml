@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>jwf-fromzero</artifactId>
+        <artifactId>xman-jwf</artifactId>
         <groupId>com.xman.jwf</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -13,6 +13,12 @@
     <artifactId>jwf-fromzero-ch02</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.xman.jwf</groupId>
+            <artifactId>jwf-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- Servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>

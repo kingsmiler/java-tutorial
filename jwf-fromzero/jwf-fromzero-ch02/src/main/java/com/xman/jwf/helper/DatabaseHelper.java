@@ -1,5 +1,6 @@
 package com.xman.jwf.helper;
 
+import com.xman.jwf.utils.db.ScriptRunner;
 import com.xman.jwf.util.ClassPathResource;
 import com.xman.jwf.util.CollectionUtil;
 import com.xman.jwf.util.PropsUtil;
@@ -11,9 +12,7 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,15 +26,12 @@ import java.util.Properties;
 public final class DatabaseHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class);
-
     private static final ThreadLocal<Connection> CONNECTION_HOLDER;
-
     private static final QueryRunner QUERY_RUNNER;
-
     private static final BasicDataSource DATA_SOURCE;
 
     static {
-        CONNECTION_HOLDER = new ThreadLocal<Connection>();
+        CONNECTION_HOLDER = new ThreadLocal<>();
 
         QUERY_RUNNER = new QueryRunner();
 
@@ -74,7 +70,7 @@ public final class DatabaseHelper {
      * 执行更新语句（包括：update、insert、delete）
      */
     public static int executeUpdate(String sql, Object... params) {
-        if(sql.trim().length() < 2) {
+        if (sql.trim().length() < 2) {
             return -1;
         }
 
@@ -179,18 +175,11 @@ public final class DatabaseHelper {
     /**
      * 执行 SQL 文件
      */
-    public static void executeSqlFile(String filePath) {
-        InputStream is = ClassPathResource.getAsStream(filePath);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        try {
-            String sql;
-            while ((sql = reader.readLine()) != null) {
-                executeUpdate(sql);
-            }
-        } catch (Exception e) {
-            LOGGER.error("execute sql file failure", e);
-            throw new RuntimeException(e);
-        }
+    public static void executeSqlFile(String filePath) throws IOException, SQLException {
+        // Creating object of ScriptRunner class
+        ScriptRunner scriptRunner = new ScriptRunner(getConnection(), false, true);
+
+        scriptRunner.runScript(new InputStreamReader(ClassPathResource.getAsStream(filePath)));
     }
 
     private static String getTableName(Class<?> entityClass) {

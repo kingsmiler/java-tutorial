@@ -1,15 +1,17 @@
 package com.xman.jwf.util;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
 public class ClassPathResource {
 
-    public static InputStream getAsStream(String name) {
+    public static InputStream getAsStream(String name) throws IOException {
 
         InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
         if (stream == null) {
-            throw new RuntimeException("Can not find out resource with name=" + name);
+            throw new FileNotFoundException("Can not find out resource with name=" + name);
         }
 
         return stream;
