@@ -1,6 +1,7 @@
 package com.xman.jwf.service;
 
 
+import com.xman.jwf.helper.DatabaseHelper;
 import com.xman.jwf.model.Customer;
 
 import java.util.List;
@@ -12,37 +13,39 @@ import java.util.Map;
 public class CustomerService {
 
     /**
-     * 获取客户列表。
-     *
-     * @param keyword
-     * @return
+     * 获取客户列表
      */
-    public List<Customer> getList(String keyword) {
-        return null;
+    public List<Customer> getCustomerList() {
+        String sql = "SELECT * FROM customer";
+        return DatabaseHelper.queryEntityList(Customer.class, sql);
     }
 
     /**
-     * 获取客户。
-     *
-     * @param id
-     * @return
+     * 获取客户
      */
-    public Customer query(long id) {
-        return null;
+    public Customer getCustomer(long id) {
+        String sql = "SELECT * FROM customer WHERE id = ?";
+        return DatabaseHelper.queryEntity(Customer.class, sql, id);
     }
 
-
-    public boolean create(Map<String, Object> fieldMap) {
-        return true;
+    /**
+     * 创建客户
+     */
+    public boolean createCustomer(Map<String, Object> fieldMap) {
+        return DatabaseHelper.insertEntity(Customer.class, fieldMap);
     }
 
-    public boolean update(long id, Map<String, Object> fieldMap) {
-        return true;
+    /**
+     * 更新客户
+     */
+    public boolean updateCustomer(long id, Map<String, Object> fieldMap) {
+        return DatabaseHelper.updateEntity(Customer.class, id, fieldMap);
     }
 
-    public boolean delete(long id) {
-        return true;
+    /**
+     * 删除客户
+     */
+    public boolean deleteCustomer(long id) {
+        return DatabaseHelper.deleteEntity(Customer.class, id);
     }
-
-
 }
